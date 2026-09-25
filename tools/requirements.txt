@@ -1,0 +1,8 @@
+# PyTorch 请单独安装（带 CUDA 版本），见 setup.ps1
+diffusers>=0.32
+transformers>=4.46
+accelerate>=1.1
+safetensors>=0.4
+torchvision
+Pillow>=10
+numpy

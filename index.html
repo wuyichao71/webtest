@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>田中ひかり · 個人サイト ｜ 我的二次元主页</title>
+  <meta name="description" content="一个日式动漫风格的个人主页 —— 全栈开发者 / 二次元爱好者。" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://nekos.best" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='88'>🌸</text></svg>" />
+</head>
+<body>
+  <!-- ===== 开场加载（纯装饰，约 1.2s） ===== -->
+  <div class="loader" id="loader">
+    <div class="loader__inner">
+      <div class="loader__sakura">🌸</div>
+      <p class="loader__text">NOW LOADING<i></i><i></i><i></i></p>
+      <p class="loader__jp">よみこみちゅう…</p>
+    </div>
+    <span class="loader__skip">点击跳过</span>
+  </div>
+
+  <!-- 樱花飘落画布 -->
+  <canvas class="petals" id="petals" aria-hidden="true"></canvas>
+
+  <!-- 点击星星特效层 -->
+  <div class="fx" id="fx" aria-hidden="true"></div>
+
+  <!-- 顶部导航 -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#hero" class="nav__logo" aria-label="返回顶部">
+        <span class="nav__logo-mark">桜</span>
+        <span class="nav__logo-text">ひかり<small>HIKARI</small></span>
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="主导航">
+        <a href="#about">关于<span class="nav__jp">はじめに</span></a>
+        <a href="#skills">能力<span class="nav__jp">ステータス</span></a>
+        <a href="#vn">立绘<span class="nav__jp">たちえ</span></a>
+        <a href="#gallery">画廊<span class="nav__jp">ギャラリー</span></a>
+        <a href="#projects">作品<span class="nav__jp">さくひん</span></a>
+        <a href="#contact">联系<span class="nav__jp">れんらく</span></a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+          <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg class="icon icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        <button class="icon-btn nav__burger" id="burger" aria-label="打开菜单" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= Hero ================= -->
+    <section class="hero" id="hero">
+      <div class="hero__bg" aria-hidden="true">
+        <span class="blob blob--1"></span>
+        <span class="blob blob--2"></span>
+        <span class="blob blob--3"></span>
+        <span class="speed-lines"></span>
+        <span class="grid-overlay"></span>
+        <span class="sfx sfx--hero">ドキドキ</span>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="hero__badge reveal">
+            <span class="dot"></span> 新規案件 受付中 ｜ 目前可接受新项目
+          </p>
+
+          <p class="hero__jp reveal">ようこそ、わたしの個人サイトへ！</p>
+          <h1 class="hero__title reveal">
+            你好，我是 <span class="gradient-text">田中ひかり</span><br />
+            <span class="hero__title-sub">一名全栈开发者 <em>／ Full-Stack Engineer</em></span>
+          </h1>
+
+          <p class="hero__desc reveal">
+            把复杂的想法，变成像动画分镜一样流畅的产品。
+            专注于 Web 应用开发、交互设计与性能优化 —— 用代码守护每一个「めっちゃいい！」的瞬间。
+          </p>
+
+          <div class="hero__cta reveal">
+            <a href="#projects" class="btn btn--primary">
+              <span class="btn__spark">✧</span> 查看作品
+              <svg viewBox="0 0 24 24" class="btn__icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#gallery" class="btn btn--ghost">动漫画廊</a>
+          </div>
+
+          <ul class="hero__socials reveal">
+            <li><a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.72-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+            </a></li>
+            <li><a href="mailto:hello@example.com" aria-label="邮箱">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </a></li>
+            <li><a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="X / Twitter">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2H21l-6.55 7.48L22 22h-6.28l-4.6-6.02L5.9 22H3.13l7-8L2 2h6.44l4.15 5.5L18.24 2zm-1.1 18.3h1.53L7.94 3.6H6.3L17.14 20.3z"/></svg>
+            </a></li>
+            <li><a href="https://www.pixiv.net/" target="_blank" rel="noopener" aria-label="Pixiv">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h4.6c3 0 5 1.5 5 4.2 0 2-1 3.4-2.8 4l3.4 6.3h-3.5l-2.9-5.6H9.6V17H7V3zm2.6 6.7h1.8c1.4 0 2.2-.7 2.2-1.8s-.8-1.8-2.2-1.8H9.6v3.6z"/></svg>
+            </a></li>
+          </ul>
+        </div>
+
+        <div class="hero__side reveal">
+          <!-- ===== 手绘动漫角色立绘 ===== -->
+          <div class="character">
+            <span class="character__glow" aria-hidden="true"></span>
+            <span class="sparkle sparkle--1" aria-hidden="true">✧</span>
+            <span class="sparkle sparkle--2" aria-hidden="true">✦</span>
+            <span class="sparkle sparkle--3" aria-hidden="true">✧</span>
+
+            <svg class="chibi" viewBox="0 0 240 240" role="img" aria-label="田中ひかり 的动漫角色立绘">
+              <defs>
+                <linearGradient id="g-hair" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#6d4fb0" />
+                  <stop offset="1" stop-color="#b79ce8" />
+                </linearGradient>
+                <linearGradient id="g-hairback" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#5a3f97" />
+                  <stop offset="1" stop-color="#8f74cf" />
+                </linearGradient>
+                <linearGradient id="g-skin" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffeade" />
+                  <stop offset="1" stop-color="#ffd6c4" />
+                </linearGradient>
+                <linearGradient id="g-iris" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#3aa7e0" />
+                  <stop offset="0.55" stop-color="#6d5bd0" />
+                  <stop offset="1" stop-color="#2c1d52" />
+                </linearGradient>
+                <radialGradient id="g-halo" cx="50%" cy="42%" r="62%">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity="0.95" />
+                  <stop offset="0.55" stop-color="#ffd6e7" stop-opacity="0.55" />
+                  <stop offset="1" stop-color="#ffd6e7" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="g-cloth" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffffff" />
+                  <stop offset="1" stop-color="#eae2ff" />
+                </linearGradient>
+                <clipPath id="c-face">
+                  <ellipse cx="120" cy="120" rx="42" ry="45" />
+                </clipPath>
+              </defs>
+
+              <!-- 光晕 -->
+              <circle cx="120" cy="118" r="112" fill="url(#g-halo)" />
+
+              <!-- 双马尾 -->
+              <g stroke="#3b2b3a" stroke-width="2.4" stroke-linejoin="round">
+                <path d="M52 128 C24 142 20 186 34 214 C52 206 66 178 66 150 Z" fill="url(#g-hairback)" />
+                <path d="M188 128 C216 142 220 186 206 214 C188 206 174 178 174 150 Z" fill="url(#g-hairback)" />
+              </g>
+              <!-- 发圈 -->
+              <g stroke="#3b2b3a" stroke-width="2.2">
+                <rect x="42" y="128" width="20" height="12" rx="6" fill="#ff6fa5" transform="rotate(-18 52 134)" />
+                <rect x="178" y="128" width="20" height="12" rx="6" fill="#ff6fa5" transform="rotate(18 188 134)" />
+              </g>
+
+              <!-- 后发 -->
+              <path d="M120 44 C74 44 58 82 60 122 C61 152 74 172 86 182 L154 182 C166 172 179 152 180 122 C182 82 166 44 120 44 Z"
+                    fill="url(#g-hairback)" stroke="#3b2b3a" stroke-width="2.6" stroke-linejoin="round" />
+
+              <!-- 脖子 / 肩膀 -->
+              <path d="M104 158 h32 v18 h-32 z" fill="#f0c3b0" stroke="#3b2b3a" stroke-width="2.2" />
+              <path d="M74 196 C84 178 102 172 120 172 C138 172 156 178 166 196 L172 240 L68 240 Z"
+                    fill="url(#g-cloth)" stroke="#3b2b3a" stroke-width="2.6" stroke-linejoin="round" />
+              <!-- 水手服领子 -->
+              <path d="M96 174 L120 202 L144 174 L136 171 L120 190 L104 171 Z" fill="#7fb7e8" stroke="#3b2b3a" stroke-width="2.4" stroke-linejoin="round" />
+              <!-- 领结 -->
+              <g stroke="#3b2b3a" stroke-width="2.2" stroke-linejoin="round">
+                <path d="M120 196 L106 190 L106 206 Z" fill="#ff5f8f" />
+                <path d="M120 196 L134 190 L134 206 Z" fill="#ff5f8f" />
+                <circle cx="120" cy="197" r="4.5" fill="#ffd166" />
+              </g>
+
+              <!-- 脸 -->
+              <ellipse cx="120" cy="120" rx="42" ry="45" fill="url(#g-skin)" stroke="#3b2b3a" stroke-width="2.6" />
+
+              <!-- 腮红 -->
+              <g clip-path="url(#c-face)" opacity="0.75">
+                <ellipse cx="92" cy="136" rx="10" ry="6" fill="#ff8fb0" />
+                <ellipse cx="148" cy="136" rx="10" ry="6" fill="#ff8fb0" />
+              </g>
+
+              <!-- 眼睛 -->
+              <g class="eye" style="transform-box:fill-box; transform-origin:center;">
+                <ellipse cx="101" cy="124" rx="12.5" ry="15.5" fill="#2a1b3d" />
+                <ellipse cx="101" cy="125" rx="11" ry="13.5" fill="url(#g-iris)" />
+                <ellipse cx="101" cy="132" rx="9" ry="6" fill="#bfe6ff" opacity="0.7" />
+                <circle cx="96.5" cy="117.5" r="4.6" fill="#ffffff" />
+                <circle cx="105" cy="130" r="2.6" fill="#ffffff" opacity="0.9" />
+                <path d="M87 110 Q101 101 115 109" fill="none" stroke="#3b2b3a" stroke-width="3.4" stroke-linecap="round" />
+              </g>
+              <g class="eye" style="transform-box:fill-box; transform-origin:center;">
+                <ellipse cx="139" cy="124" rx="12.5" ry="15.5" fill="#2a1b3d" />
+                <ellipse cx="139" cy="125" rx="11" ry="13.5" fill="url(#g-iris)" />
+                <ellipse cx="139" cy="132" rx="9" ry="6" fill="#bfe6ff" opacity="0.7" />
+                <circle cx="134.5" cy="117.5" r="4.6" fill="#ffffff" />
+                <circle cx="143" cy="130" r="2.6" fill="#ffffff" opacity="0.9" />
+                <path d="M125 109 Q139 101 153 110" fill="none" stroke="#3b2b3a" stroke-width="3.4" stroke-linecap="round" />
+              </g>
+
+              <!-- 眉毛 -->
+              <path d="M92 101 Q101 97 109 100" fill="none" stroke="#7a5aa8" stroke-width="3" stroke-linecap="round" />
+              <path d="M131 100 Q139 97 148 101" fill="none" stroke="#7a5aa8" stroke-width="3" stroke-linecap="round" />
+
+              <!-- 嘴巴 -->
+              <path d="M113 145 Q120 152 127 145" fill="none" stroke="#b3546f" stroke-width="2.6" stroke-linecap="round" />
+
+              <!-- 刘海 -->
+              <path d="M72 122 C66 78 92 52 120 52 C148 52 174 78 168 122 C160 100 150 90 142 86 C141 102 132 114 121 119 C124 100 119 86 111 80 C104 96 92 110 82 116 C78 106 74 100 72 122 Z"
+                    fill="url(#g-hair)" stroke="#3b2b3a" stroke-width="2.6" stroke-linejoin="round" />
+
+              <!-- 侧发 -->
+              <path d="M74 98 C60 120 62 158 72 180 C82 168 86 148 84 126 Z"
+                    fill="url(#g-hair)" stroke="#3b2b3a" stroke-width="2.4" stroke-linejoin="round" />
+              <path d="M166 98 C180 120 178 158 168 180 C158 168 154 148 156 126 Z"
+                    fill="url(#g-hair)" stroke="#3b2b3a" stroke-width="2.4" stroke-linejoin="round" />
+
+              <!-- 呆毛 -->
+              <path class="ahoge" d="M120 50 C116 30 128 16 146 14 C133 24 128 36 128 50"
+                    fill="none" stroke="#a98bdb" stroke-width="6" stroke-linecap="round" />
+
+              <!-- 高光 -->
+              <path d="M92 62 Q120 46 148 62" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.6" />
+            </svg>
+
+            <div class="character__name">
+              <strong>田中 ひかり</strong>
+              <small>フルスタック魔法使い ・ LV.26</small>
+            </div>
+          </div>
+
+          <!-- 数据 -->
+          <div class="hero__stats">
+            <div class="stat"><strong data-count="6">0</strong><span>年经验</span></div>
+            <div class="stat"><strong data-count="48">0</strong><span>个项目</span></div>
+            <div class="stat"><strong data-count="99" data-suffix="%">0</strong><span>满意度</span></div>
+          </div>
+
+          <!-- 视觉小说对话框 -->
+          <div class="dialogue" id="dialogue" role="button" tabindex="0" aria-label="点击切换台词">
+            <div class="dialogue__name" id="dialogueName">光</div>
+            <p class="dialogue__text" id="dialogueText"></p>
+            <span class="dialogue__next">▼ 点击继续</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-hint" aria-label="向下滚动"><span></span></a>
+    </section>
+
+    <!-- ================= 关于 ================= -->
+    <section class="section" id="about">
+      <span class="sfx sfx--about" aria-hidden="true">ゴゴゴ</span>
+      <div class="container">
+        <p class="section__eyebrow reveal">はじめに ／ 关于我</p>
+        <h2 class="section__title reveal">我的「ものがたり」</h2>
+
+        <div class="about">
+          <div class="about__text reveal">
+            <div class="bubble">
+              <p>
+                我是一名拥有 6 年经验的全栈开发者，参与过从 0 到 1 的产品搭建，
+                也负责过百万级用户系统的重构与性能优化。
+              </p>
+              <span class="bubble__tail"></span>
+            </div>
+
+            <p>
+              就像一集好动画需要分镜、作画、配乐紧密配合，我也相信优秀的产品来自细节的协作：
+              更快的加载、更顺手的交互、更易读的代码。
+              工作之外，我喜欢追番、写技术文章，以及研究新的前端魔法。
+            </p>
+
+            <ul class="about__facts">
+              <li><span>📍</span> 上海，中国</li>
+              <li><span>💼</span> 全栈开发 / 前端架构</li>
+              <li><span>🎬</span> 本季追番 12 部</li>
+              <li><span>☕</span> 咖啡因驱动型开发者</li>
+            </ul>
+          </div>
+
+          <div class="about__episodes reveal">
+            <div class="ep">
+              <span class="ep__num">第1話</span>
+              <div class="ep__body">
+                <h3>2022 — 至今 ｜ 高级全栈工程师</h3>
+                <p>主导核心业务前端架构，推动组件库与 CI/CD 落地，页面性能提升 60%。</p>
+              </div>
+            </div>
+            <div class="ep">
+              <span class="ep__num">第2話</span>
+              <div class="ep__body">
+                <h3>2019 — 2022 ｜ 全栈开发工程师</h3>
+                <p>作为早期成员参与产品从 0 到 1，负责前后端开发与部署运维。</p>
+              </div>
+            </div>
+            <div class="ep">
+              <span class="ep__num">第0話</span>
+              <div class="ep__body">
+                <h3>2015 — 2019 ｜ 计算机科学 学士</h3>
+                <p>专注 Web 技术方向，多次参与程序设计竞赛并获奖。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 技能 ================= -->
+    <section class="section section--alt" id="skills">
+      <span class="sfx sfx--skills" aria-hidden="true">キラキラ</span>
+      <div class="container">
+        <p class="section__eyebrow reveal">ステータス ／ 技能栈</p>
+        <h2 class="section__title reveal">我的技能面板</h2>
+
+        <div class="skills">
+          <article class="skill-card reveal">
+            <div class="skill-card__top">
+              <div class="skill-card__icon">🎨</div>
+              <span class="skill-card__jp">フロントエンド</span>
+            </div>
+            <h3>前端开发</h3>
+            <p>构建高性能、可访问的用户界面。</p>
+            <div class="tags">
+              <span>TypeScript</span><span>React</span><span>Vue</span><span>Next.js</span><span>Tailwind</span>
+            </div>
+            <span class="skill-card__spark" aria-hidden="true">✧</span>
+          </article>
+
+          <article class="skill-card reveal">
+            <div class="skill-card__top">
+              <div class="skill-card__icon">⚙️</div>
+              <span class="skill-card__jp">バックエンド</span>
+            </div>
+            <h3>后端开发</h3>
+            <p>设计可靠的 API 与可扩展的服务架构。</p>
+            <div class="tags">
+              <span>Node.js</span><span>NestJS</span><span>Python</span><span>PostgreSQL</span><span>Redis</span>
+            </div>
+            <span class="skill-card__spark" aria-hidden="true">✧</span>
+          </article>
+
+          <article class="skill-card reveal">
+            <div class="skill-card__top">
+              <div class="skill-card__icon">🚀</div>
+              <span class="skill-card__jp">インフラ</span>
+            </div>
+            <h3>工程化 & 部署</h3>
+            <p>让开发流程更快、更稳定、更省心。</p>
+            <div class="tags">
+              <span>Docker</span><span>Nginx</span><span>GitHub Actions</span><span>AWS</span><span>Vite</span>
+            </div>
+            <span class="skill-card__spark" aria-hidden="true">✧</span>
+          </article>
+        </div>
+
+        <!-- RPG 状态窗口 -->
+        <div class="status-window reveal">
+          <div class="status-window__bar">
+            <span class="status-window__dots"><i></i><i></i><i></i></span>
+            <span class="status-window__title">STATUS ／ 能力値</span>
+          </div>
+          <div class="status-rows">
+            <div class="status-row">
+              <span class="status-row__key">HP</span>
+              <span class="status-row__val">体力 ／ 熬夜力</span>
+              <span class="status-row__num">9999</span>
+            </div>
+            <div class="status-row">
+              <span class="status-row__key">MP</span>
+              <span class="status-row__val">创造力 ／ 灵感</span>
+              <span class="status-row__num">8642</span>
+            </div>
+            <div class="status-row">
+              <span class="status-row__key">EXP</span>
+              <span class="status-row__val">即将升级</span>
+              <span class="status-row__num">92%</span>
+            </div>
+          </div>
+
+          <div class="bars">
+            <div class="bar">
+              <div class="bar__head"><span>前 端 ／ UI <em>こうげき</em></span><span>95%</span></div>
+              <div class="bar__track"><span class="bar__fill" data-width="95"></span></div>
+            </div>
+            <div class="bar">
+              <div class="bar__head"><span>后 端 ／ API <em>ぼうぎょ</em></span><span>88%</span></div>
+              <div class="bar__track"><span class="bar__fill" data-width="88"></span></div>
+            </div>
+            <div class="bar">
+              <div class="bar__head"><span>DevOps ／ 部署 <em>すばやさ</em></span><span>80%</span></div>
+              <div class="bar__track"><span class="bar__fill" data-width="80"></span></div>
+            </div>
+            <div class="bar">
+              <div class="bar__head"><span>产品 ／ 设计 <em>かんせい</em></span><span>75%</span></div>
+              <div class="bar__track"><span class="bar__fill" data-width="75"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 立绘 / 视觉小说 ================= -->
+    <section class="section" id="vn">
+      <span class="sfx sfx--vn" aria-hidden="true">ドキドキ</span>
+      <div class="container">
+        <p class="section__eyebrow reveal">角色立绘 ／ CHARACTER</p>
+        <h2 class="section__title reveal">恋爱冒险 · 体验版</h2>
+        <p class="vn__lead reveal">
+          原创角色立绘 + 可交互的恋爱冒险（Galgame）场景：点击两侧角色切换说话的人，
+          点击对话框继续，选择选项会触发不同回应。
+        </p>
+
+        <div class="vn reveal" id="vnStage">
+          <div class="vn__stage">
+            <!-- 和风黄昏背景 -->
+            <div class="vn__bg" aria-hidden="true">
+              <svg viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#3b2a6b" />
+                    <stop offset="0.35" stop-color="#8a5aa8" />
+                    <stop offset="0.6" stop-color="#ff8fb0" />
+                    <stop offset="0.8" stop-color="#ffb98a" />
+                    <stop offset="1" stop-color="#ffe0b8" />
+                  </linearGradient>
+                  <radialGradient id="sunglow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0" stop-color="#fff6d8" stop-opacity="1" />
+                    <stop offset="0.5" stop-color="#ffd28a" stop-opacity="0.7" />
+                    <stop offset="1" stop-color="#ff9f7a" stop-opacity="0" />
+                  </radialGradient>
+                  <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#6b4f96" /><stop offset="1" stop-color="#4a3670" />
+                  </linearGradient>
+                  <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#3d2c5e" /><stop offset="1" stop-color="#241a3c" />
+                  </linearGradient>
+                  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ffb98a" /><stop offset="1" stop-color="#8a5aa8" />
+                  </linearGradient>
+                  <linearGradient id="torii" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#e8505f" /><stop offset="1" stop-color="#a8283a" />
+                  </linearGradient>
+                </defs>
+
+                <rect width="1200" height="620" fill="url(#sky)" />
+                <circle cx="820" cy="330" r="240" fill="url(#sunglow)" />
+                <circle cx="820" cy="330" r="86" fill="#fff3d0" opacity="0.95" />
+
+                <g fill="#ffffff" opacity="0.26">
+                  <ellipse cx="240" cy="120" rx="130" ry="26" />
+                  <ellipse cx="330" cy="104" rx="90" ry="20" />
+                  <ellipse cx="980" cy="162" rx="150" ry="28" />
+                  <ellipse cx="880" cy="146" rx="80" ry="18" />
+                </g>
+
+                <path d="M0 402 L140 300 L260 380 L400 268 L540 390 L680 300 L820 400 L960 310 L1120 400 L1200 350 L1200 620 L0 620 Z" fill="url(#far)" opacity="0.92" />
+                <path d="M0 470 L180 400 L360 470 L560 410 L760 480 L960 420 L1200 480 L1200 620 L0 620 Z" fill="url(#near)" />
+
+                <rect x="0" y="520" width="1200" height="100" fill="url(#water)" opacity="0.45" />
+                <g stroke="#fff3d0" stroke-width="3" opacity="0.32" stroke-linecap="round">
+                  <path d="M700 548 h120" /><path d="M760 572 h160" /><path d="M640 596 h140" />
+                </g>
+
+                <!-- 鸟居 -->
+                <g fill="url(#torii)" stroke="#7a1f2c" stroke-width="3" stroke-linejoin="round">
+                  <rect x="742" y="292" width="26" height="288" rx="8" />
+                  <rect x="902" y="292" width="26" height="288" rx="8" />
+                  <path d="M700 292 Q835 268 970 292 L970 316 Q835 294 700 316 Z" />
+                  <rect x="716" y="332" width="238" height="18" rx="6" />
+                  <rect x="822" y="316" width="26" height="30" rx="6" />
+                </g>
+
+                <!-- 灯笼 -->
+                <g>
+                  <line x1="716" y1="352" x2="716" y2="378" stroke="#7a1f2c" stroke-width="3" />
+                  <ellipse cx="716" cy="394" rx="15" ry="19" fill="#ffd166" stroke="#7a1f2c" stroke-width="3" />
+                  <line x1="954" y1="352" x2="954" y2="378" stroke="#7a1f2c" stroke-width="3" />
+                  <ellipse cx="954" cy="394" rx="15" ry="19" fill="#ffd166" stroke="#7a1f2c" stroke-width="3" />
+                </g>
+
+                <!-- 樱树 -->
+                <g>
+                  <path d="M96 620 C104 520 92 460 60 400 C100 430 120 470 132 520 C140 470 150 430 176 396 C156 452 150 520 158 620 Z" fill="#3a2438" />
+                  <g fill="#ffb7d5" opacity="0.95">
+                    <circle cx="60" cy="380" r="52" /><circle cx="132" cy="350" r="60" /><circle cx="200" cy="392" r="48" />
+                    <circle cx="104" cy="322" r="44" /><circle cx="176" cy="322" r="40" /><circle cx="240" cy="340" r="34" />
+                  </g>
+                  <g fill="#ff8fbc" opacity="0.8">
+                    <circle cx="86" cy="360" r="30" /><circle cx="160" cy="378" r="28" /><circle cx="214" cy="360" r="24" />
+                  </g>
+                </g>
+
+                <path d="M0 592 Q300 566 600 588 Q900 610 1200 584 L1200 620 L0 620 Z" fill="#2a1f45" />
+              </svg>
+            </div>
+
+            <!-- 立绘层（JS 注入） -->
+            <div class="vn__chars" id="vnChars"></div>
+
+            <!-- 选项层 -->
+            <div class="vn__choices" id="vnChoices"></div>
+
+            <!-- 右上角 UI -->
+            <div class="vn__ui">
+              <button class="vnbtn" type="button" data-act="存档">存档</button>
+              <button class="vnbtn" type="button" data-act="读档">读档</button>
+              <button class="vnbtn" type="button" data-act="自动">自动</button>
+              <button class="vnbtn" type="button" data-act="快进">快进</button>
+              <button class="vnbtn" type="button" data-act="回想">回想</button>
+            </div>
+
+            <!-- 对话框 -->
+            <div class="vn__box" id="vnBox" role="button" tabindex="0" aria-label="点击继续对话">
+              <div class="vn__name"><span id="vnName"></span><em id="vnRole"></em></div>
+              <p class="vn__text" id="vnText"></p>
+              <span class="vn__indicator">▼</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="vn__note reveal">
+          ※ 立绘为本站原创绘制（SVG），并非《千恋万花》官方素材。
+          想换成自己的图片？把 PNG 放进 <code>images/</code>，然后在 <code>script.js</code> 的 <code>CHARS</code> 里加一行 <code>image: "images/xxx.png"</code> 即可。
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= 动漫画廊 ================= -->
+    <section class="section" id="gallery">
+      <span class="sfx sfx--gallery" aria-hidden="true">バーン</span>
+      <div class="container">
+        <p class="section__eyebrow reveal">ギャラリー ／ 动漫画廊</p>
+        <h2 class="section__title reveal">今日のおすすめ</h2>
+        <p class="gallery__lead reveal">
+          每天随机推荐的动漫插画 —— 来自 <a href="https://nekos.best" target="_blank" rel="noopener">nekos.best</a>，
+          版权归原作者所有，点击图片可跳转作者主页。
+        </p>
+
+        <div class="gallery__toolbar reveal">
+          <div class="gallery__tabs" id="galleryTabs" role="tablist" aria-label="图片分类">
+            <button class="gtab is-active" data-cat="neko" role="tab">🐾 猫娘</button>
+            <button class="gtab" data-cat="waifu" role="tab">🌸 女の子</button>
+            <button class="gtab" data-cat="kitsune" role="tab">🦊 狐娘</button>
+            <button class="gtab" data-cat="husbando" role="tab">⚔️ 男の子</button>
+          </div>
+          <button class="btn btn--ghost btn--sm" id="galleryRefresh">
+            <span class="btn__spark">↻</span> 换个看看
+          </button>
+        </div>
+
+        <div class="gallery" id="galleryGrid" aria-live="polite"></div>
+        <p class="gallery__note" id="galleryNote"></p>
+      </div>
+    </section>
+
+    <!-- ================= 作品 ================= -->
+    <section class="section section--alt" id="projects">
+      <span class="sfx sfx--projects" aria-hidden="true">ゴゴゴ</span>
+      <div class="container">
+        <p class="section__eyebrow reveal">さくひん ／ 精选作品</p>
+        <h2 class="section__title reveal">作品集 ｜ Portfolio</h2>
+
+        <div class="projects">
+          <article class="project reveal">
+            <div class="project__thumb project__thumb--1">
+              <span>📊</span>
+              <span class="project__panel-no">#01</span>
+            </div>
+            <div class="project__body">
+              <div class="project__meta">Web 应用 · 2024</div>
+              <h3>数据可视化平台</h3>
+              <p>面向企业的实时数据看板，支持拖拽式图表配置与多数据源接入，日活用户 2 万+。</p>
+              <div class="tags"><span>React</span><span>ECharts</span><span>Node.js</span></div>
+              <div class="project__links">
+                <a href="#" class="link">在线预览 →</a>
+                <a href="#" class="link">源码 →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project__thumb project__thumb--2">
+              <span>🛒</span>
+              <span class="project__panel-no">#02</span>
+            </div>
+            <div class="project__body">
+              <div class="project__meta">电商系统 · 2023</div>
+              <h3>跨境电商后台</h3>
+              <p>覆盖商品、订单、库存、结算的完整后台系统，处理日均十万级订单，性能稳定可靠。</p>
+              <div class="tags"><span>Vue</span><span>NestJS</span><span>PostgreSQL</span></div>
+              <div class="project__links">
+                <a href="#" class="link">在线预览 →</a>
+                <a href="#" class="link">源码 →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project__thumb project__thumb--3">
+              <span>🤖</span>
+              <span class="project__panel-no">#03</span>
+            </div>
+            <div class="project__body">
+              <div class="project__meta">AI 工具 · 2024</div>
+              <h3>智能文档助手</h3>
+              <p>基于大模型的文档问答工具，支持多格式解析与语义检索，显著提升团队知识检索效率。</p>
+              <div class="tags"><span>Next.js</span><span>Python</span><span>LangChain</span></div>
+              <div class="project__links">
+                <a href="#" class="link">在线预览 →</a>
+                <a href="#" class="link">源码 →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project__thumb project__thumb--4">
+              <span>🧩</span>
+              <span class="project__panel-no">#04</span>
+            </div>
+            <div class="project__body">
+              <div class="project__meta">开源组件库 · 2022</div>
+              <h3>UI 组件库</h3>
+              <p>轻量、可定制的开源组件库，包含 40+ 组件，支持主题定制与 Tree Shaking。</p>
+              <div class="tags"><span>TypeScript</span><span>Vite</span><span>Vitest</span></div>
+              <div class="project__links">
+                <a href="#" class="link">在线预览 →</a>
+                <a href="#" class="link">源码 →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 联系 ================= -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact reveal">
+          <p class="section__eyebrow">れんらく ／ 联系我</p>
+          <h2 class="section__title">一緒に何か作りませんか？</h2>
+          <p class="contact__jp">有想法？一起聊聊吧！</p>
+          <p class="contact__desc">
+            无论是项目合作、技术交流还是招聘机会，我都非常乐意收到你的消息。
+            通常我会在 24 小时内回复 —— 比追番还快哦！
+          </p>
+
+          <div class="contact__actions">
+            <a href="mailto:hello@example.com" class="btn btn--primary">
+              <svg viewBox="0 0 24 24" class="btn__icon" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              hello@example.com
+            </a>
+            <button class="btn btn--ghost" id="copyEmail" data-email="hello@example.com">复制邮箱</button>
+          </div>
+
+          <div class="contact__grid">
+            <a class="contact__item" href="https://github.com/" target="_blank" rel="noopener">
+              <span class="contact__item-icon">🐙</span>
+              <div><strong>GitHub</strong><small>github.com/yourname</small></div>
+            </a>
+            <a class="contact__item" href="https://twitter.com/" target="_blank" rel="noopener">
+              <span class="contact__item-icon">𝕏</span>
+              <div><strong>X / Twitter</strong><small>@yourname</small></div>
+            </a>
+            <a class="contact__item" href="#">
+              <span class="contact__item-icon">📄</span>
+              <div><strong>个人简历</strong><small>下载 PDF</small></div>
+            </a>
+            <a class="contact__item" href="#">
+              <span class="contact__item-icon">✍️</span>
+              <div><strong>技术博客</strong><small>blog.example.com</small></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次回预告 -->
+    <section class="next-ep">
+      <div class="container next-ep__inner">
+        <span class="next-ep__label">NEXT EPISODE</span>
+        <p class="next-ep__text">次回：「你的项目」—— 敬请期待！</p>
+        <a href="#contact" class="next-ep__link">一起制作 ▶</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span id="year"></span> 田中ひかり · 用 🌸 与代码构建</p>
+      <p class="footer__jp">つづく…</p>
+      <a href="#hero" class="footer__top">回到顶部 ↑</a>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

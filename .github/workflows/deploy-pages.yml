@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# 允许 GITHUB_TOKEN 部署到 Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同时只跑一个部署，新的 push 会取消排队中的旧任务
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Pages（首次会自动开启）
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: 整理要发布的静态文件
+        run: |
+          mkdir -p _site
+          cp index.html styles.css script.js _site/
+          cp -r images _site/images
+          rm -f _site/images/*.md
+          touch _site/.nojekyll
+          echo "--- 将要发布的内容 ---"
+          find _site -type f | sort
+
+      - name: 打包上传
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
