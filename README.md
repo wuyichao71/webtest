@@ -161,7 +161,7 @@ npx --yes serve -l tcp://0.0.0.0:8000 .
 ## 立绘 Prompt 记录
 
 所有角色立绘的**生成提示词、推荐参数、后处理流程**都记在 [PROMPTS.md](PROMPTS.md) 里，
-可以直接复制到 即梦 / 通义万相 / NovelibAI / Stable Diffusion 复用或微调。
+可以直接复制到 即梦 / 通义万相 / NovelAI / Stable Diffusion 复用或微调。
 
 内容包括：
 
