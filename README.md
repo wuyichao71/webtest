@@ -157,3 +157,15 @@ npx --yes serve -l tcp://0.0.0.0:8000 .
 
 纯静态文件，可直接部署到 GitHub Pages、Vercel、Netlify、Cloudflare Pages 等。
 `serve.py` / `serve.bat` / `allow-firewall.bat` 不需要上传。
+
+## 立绘 Prompt 记录
+
+所有角色立绘的**生成提示词、推荐参数、后处理流程**都记在 [PROMPTS.md](PROMPTS.md) 里，
+可以直接复制到 即梦 / 通义万相 / NovelibAI / Stable Diffusion 复用或微调。
+
+内容包括：
+
+- 每个角色的**中文 Prompt** 与**英文 danbooru 标签**、反向词
+- 推荐尺寸 / 步数 / CFG / 采样器
+- 统一的**半身裁切 + 等比缩放 + WebP 压缩**流程（可一键复现）
+- 新增角色的模板
