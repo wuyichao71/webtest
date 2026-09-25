@@ -3,6 +3,9 @@ __pycache__/
 *.pyc
 .venv/
 
+# 立绘原图（只保留处理后的 webp/png，原图不发布）
+images/_originals/
+
 # 系统
 .DS_Store
 Thumbs.db

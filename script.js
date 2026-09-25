@@ -425,24 +425,17 @@
         reply: "「谢谢！好开心，记得常来玩呀♪」"
       },
       {
-        id: "yuki",
-        name: "雪",
+        id: "yukino",
+        name: "雪乃",
         title: "高冷学姐",
-        style: "long",
-        bangs: "c",
-        mouth: "smile",
-        hair: { main: "#3f3b60", light: "#736ea0", shade: "#26233a" },
-        eye: ["#9be7ff", "#4a7fd8", "#1b2450"],
-        skin: ["#ffeade", "#ffd6c4"],
-        outfit: { type: "kimono", main: "#e9e4ff", sub: "#7a68c9", obi: "#2fa8c9" },
-        accessory: "kanzashi",
-        accent: "#7fe3ff",
+        image: "images/yukino.webp",
+        accent: "#8fb8ff",
         lines: [
-          "……这家伙，是真的挺厉害的。",
-          "这整个界面，你知道全是手写的 CSS 吗？",
-          "嘛，偶尔夸她一下也不是不行。"
+          "欢迎来到小光的网站……请随意看看。",
+          "听说这些页面，全部都是她一个人写出来的。",
+          "……虽然不太想承认，但确实做得不错。"
         ],
-        reply: "「……才、才不是特意为了你才说的。」"
+        reply: "「……哼，我才没有在夸她呢。」"
       }
     ];
 
@@ -581,7 +574,7 @@
     CHARS.forEach(function (c, i) {
       var btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "vn-char";
+      btn.className = "vn-char " + (c.image ? "vn-char--img" : "vn-char--svg");
       btn.setAttribute("aria-label", "让 " + c.name + " 说话");
       btn.innerHTML = c.image
         ? '<img src="' + c.image + '" alt="' + c.name + ' 的立绘" />'

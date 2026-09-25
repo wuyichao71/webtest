@@ -836,6 +836,14 @@ html[data-theme="dark"] .section--alt { background: color-mix(in srgb, var(--bg-
   transition: transform 0.45s var(--ease), filter 0.45s var(--ease);
 }
 .vn-char svg, .vn-char img { height: 100%; width: auto; display: block; }
+
+/* 图片立绘（全身/半身）比手工 SVG 立绘略大，让头部比例更接近 */
+.vn-char--img { height: 100%; }
+
+/* 角色多于 3 个时自动缩小，避免挤出画面 */
+.vn__chars:has(.vn-char:nth-child(4)) .vn-char { height: 74%; margin: 0 -4.5%; }
+.vn__chars:has(.vn-char:nth-child(4)) .vn-char--img { height: 88%; }
+
 .vn-char:hover { filter: brightness(0.88) saturate(0.92); }
 .vn-char.is-active { filter: none; transform: translateY(0) scale(1.05); z-index: 3; }
 .vn-char.is-active:hover { filter: none; }
@@ -928,6 +936,8 @@ html[data-theme="dark"] .section--alt { background: color-mix(in srgb, var(--bg-
 @media (max-width: 760px) {
   .vn__stage { aspect-ratio: 3 / 4; }
   .vn-char { height: 76%; margin: 0 -9%; }
+  .vn__chars:has(.vn-char:nth-child(4)) .vn-char { height: 48%; margin: 0 -12%; }
+  .vn__chars:has(.vn-char:nth-child(4)) .vn-char--img { height: 58%; }
   .vn__box { padding: 22px 18px 24px; min-height: 32%; }
   .vn__choices { width: 86%; bottom: 40%; }
   .vn-choice { font-size: 0.86rem; padding: 11px 16px; }
