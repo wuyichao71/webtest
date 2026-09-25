@@ -14,7 +14,8 @@ website/
 ├── index.html   # 页面结构与内容
 ├── styles.css   # 样式（昼/夜双主题 + 动画 + 立绘场景）
 ├── script.js    # 交互（樱花、台词、立绘生成、主题、动画）
-├── images/      # 放你自己的立绘图片（可选）
+├── images/      # 立绘图片
+├── PROMPTS.md   # 立绘生成的 Prompt 记录
 └── README.md
 ```
 
