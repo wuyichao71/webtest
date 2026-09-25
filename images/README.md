@@ -6,12 +6,15 @@
 
 | 文件 | 对应角色 | 说明 |
 |---|---|---|
-| `mio.webp` | 美绪（青梅竹马·巫女） | 770×1150，透明背景，304 KB |
-| `yukino.webp` | 雪乃（高冷学姐） | 769×1150，透明背景，369 KB |
+| `mio.webp` | 美绪（青梅竹马·巫女） | 969×900，半身，透明背景，330 KB |
+| `yukino.webp` | 雪乃（高冷学姐） | 968×900，半身，透明背景，369 KB |
 | `_originals/` | — | 原图备份，**已在 `.gitignore` 里，不会发布** |
 
-> 两张图都是**保留完整宽度、只纵向裁掉透明边、等比缩放**，原始宽高比 0.667 保持不变。
-> 在 galgame 场景里靠舞台纵向“截断”，下半身自然被对话框挡住。
+两张图的处理方式：
+
+- **不横向裁切** —— 左右完整保留，头发一点没切
+- **只纵向裁切** —— 从底部裁到半身（头 → 胯），保留头部和完整上身
+- **等比缩放** —— 绝不拉伸变形
 
 ## 三种立绘来源
 
@@ -34,6 +37,12 @@
 }
 ```
 
+或者直接跑工具自动接入：
+
+```powershell
+.\.venv\Scripts\python.exe tools\use_images.py
+```
+
 ## 如果图片是白底的
 
 用仓库里的工具一键抠成透明：
@@ -42,13 +51,17 @@
 .\.venv\Scripts\python.exe tools\make_transparent.py --trim
 ```
 
-## 压缩建议
-
-PNG 立绘动辄 1~3 MB，转成 **WebP** 能压到 1/8 还看不出差别：
+## 裁成半身 + 压缩
 
 ```python
 from PIL import Image
-Image.open("images/新图.png").save("images/新图.webp", "WEBP", quality=92, method=6)
+
+im = Image.open("images/_originals/新图.png").convert("RGBA")
+top = im.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox()[1]
+bottom = int((im.height - top) * 0.62) + top      # 0.62 = 半身
+c = im.crop((0, top, im.width, bottom))           # 横向不裁，只裁纵向
+c = c.resize((round(c.width * 900 / c.height), 900), Image.LANCZOS)  # 等比
+c.save("images/新图.webp", "WEBP", quality=92, method=6)
 ```
 
 > ⚠️ 请使用你有权使用的图片。商业游戏的官方素材受版权保护，不适合直接放在公开网站上。
