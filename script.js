@@ -386,6 +386,7 @@
     var CHARS = [
       {
         id: "mio",
+        image: "images/mio.webp",
         name: "美绪",
         title: "青梅竹马",
         style: "twin",
